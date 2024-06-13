@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { AuthContext } from "@/providers/AuthProvider";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
@@ -27,7 +28,7 @@ const NavBar = ({ expandSideBar, setExpandSideBar }: NavBarProps) => {
   };
 
   return (
-    <div className="border-b-2 py-2 px-2  relative w-full list-none h-14">
+    <div className="border-b-2 py-2 px-2  w-full list-none h-14 fixed z-[1000] bg-white">
       <div className=" mx-auto md:flex justify-between items-center hidden">
         <div className="flex justify-start items-center gap-4 ml-4">
           <button

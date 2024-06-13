@@ -1,5 +1,4 @@
 import { IoHomeOutline } from "react-icons/io5";
-import { FaHistory } from "react-icons/fa";
 import { IoVideocamOutline } from "react-icons/io5";
 import { FiUpload } from "react-icons/fi";
 import { MdHistory } from "react-icons/md";
@@ -61,7 +60,7 @@ const SideBar = ({ expandSideBar }: SideBarProps) => {
               className="hover:bg-slate-200
              p-1 m-1 rounded"
             >
-              <FaHistory className="text-2xl" />
+              <MdHistory className="text-2xl" />
             </div>
             <div
               className="hover:bg-slate-200
