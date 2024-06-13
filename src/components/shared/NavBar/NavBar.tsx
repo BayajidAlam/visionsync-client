@@ -1,24 +1,15 @@
 import { AuthContext } from "@/providers/AuthProvider";
 import React, { useContext, useState } from "react";
-import { IoSettings } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { cn } from "@/lib/utils";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-
+import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 
 const NavBar = () => {
   // @ts-ignore
   const { user, logOutUser } = useContext(AuthContext);
   const [expand, setExpand] = useState(false);
-
 
   const handleLogOut = () => {
     logOutUser()
@@ -28,68 +19,27 @@ const NavBar = () => {
       });
   };
 
-  const components: { title: string; href?: string }[] = [
-    {
-      title: "Create types",
-      href: "/create-types",
-    },
-    {
-      title: "Change password",
-      href: "/change-password",
-    },
-    {
-      title: "Logout",
-    },
-  ];
-
   return (
-    <div className="border-b-2 py-2 px-2 bg-smartErpMain relative w-full list-none">
+    <div className="border-b-2 py-2 px-2 bg-smartErpMain relative w-full list-none h-12">
       <div className="container mx-auto md:flex justify-between items-center hidden">
-        <Link to="/">
-          <h1 className="text-green font-bold uppercase text-xl">Mahlun</h1>
-        </Link>
+        <div className="flex justify-start items-center gap-4">
+          <button>
+            <IoMenu className="text-3xl"/>
+          </button>
+          <Link to="/">
+            <h1 className="text-green font-bold uppercase text-xl">Mahlun</h1>
+          </Link>
+        </div>
 
         <div className="flex justify-end items-center">
           <div className="flex justify-end items-center gap-4 text-lg text-green mr-1">
             <Link to={"/"}>Home</Link>
             <Link to={"/dashboard"}>Dashboard</Link>
           </div>
-
-          <NavigationMenu>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>
-                <div className="flex justify-center items-center gap-4">
-                  <IoSettings className="text-2xl text-black" />
-                </div>
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[160px]  p-3 md:w-[160px] md:grid-cols-1 lg:w-[160px]">
-                  {components.map((component) => {
-                    if (component.title === "Logout") {
-                      return (
-                        <button
-                          key={component.title}
-                          onClick={handleLogOut}
-                          className="text-left"
-                        >
-                          {component.title}
-                        </button>
-                      );
-                    } else {
-                      return (
-                        <Link key={component.title} to={component.href || ""}>
-                          {component.title}
-                        </Link>
-                      );
-                    }
-                  })}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenu>
         </div>
       </div>
 
+      {/* small device  */}
       <div className="container mx-auto md:hidden justify-between items-center flex">
         <h1 className="text-green font-bold uppercase text-xl">Mahlun</h1>
         <div onClick={() => setExpand(!expand)} className="text-3xl">
