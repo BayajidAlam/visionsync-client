@@ -5,8 +5,15 @@ import { IoMenu } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { cn } from "@/lib/utils";
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import userImage from "../../../assets/IMG_0198.jpg";
 
-const NavBar = () => {
+type NavBarProps = {
+  expandSideBar: boolean;
+  setExpandSideBar: (expand: boolean) => void;
+};
+
+const NavBar = ({ expandSideBar, setExpandSideBar }: NavBarProps) => {
   // @ts-ignore
   const { user, logOutUser } = useContext(AuthContext);
   const [expand, setExpand] = useState(false);
@@ -20,28 +27,37 @@ const NavBar = () => {
   };
 
   return (
-    <div className="border-b-2 py-2 px-2 bg-smartErpMain relative w-full list-none h-12">
-      <div className="container mx-auto md:flex justify-between items-center hidden">
-        <div className="flex justify-start items-center gap-4">
-          <button>
-            <IoMenu className="text-3xl"/>
+    <div className="border-b-2 py-2 px-2  relative w-full list-none h-14">
+      <div className=" mx-auto md:flex justify-between items-center hidden">
+        <div className="flex justify-start items-center gap-4 ml-4">
+          <button
+            className="hover:bg-slate-200
+         p-1 m-1 rounded-full"
+            onClick={() => setExpandSideBar(!expandSideBar)}
+          >
+            <IoMenu className="text-3xl" />
           </button>
           <Link to="/">
-            <h1 className="text-green font-bold uppercase text-xl">Mahlun</h1>
+            <h1 className="text-green font-bold uppercase text-xl">
+              VisionSync
+            </h1>
           </Link>
         </div>
 
-        <div className="flex justify-end items-center">
+        <div className="flex justify-end items-center mr-8">
           <div className="flex justify-end items-center gap-4 text-lg text-green mr-1">
-            <Link to={"/"}>Home</Link>
-            <Link to={"/dashboard"}>Dashboard</Link>
+            <button className="hover:bg-slate-200
+         p-1 m-1 rounded-full">
+              <IoMdNotificationsOutline className="text-2xl" />
+            </button>
+            <img className="h-8 w-8 rounded-full" src={userImage} />
           </div>
         </div>
       </div>
 
       {/* small device  */}
       <div className="container mx-auto md:hidden justify-between items-center flex">
-        <h1 className="text-green font-bold uppercase text-xl">Mahlun</h1>
+        <h1 className="text-green font-bold uppercase text-xl">VisionSync</h1>
         <div onClick={() => setExpand(!expand)} className="text-3xl">
           <IoMenu />
         </div>

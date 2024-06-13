@@ -3,14 +3,20 @@ import NavBar from "../components/shared/NavBar/NavBar";
 import "../index.css";
 import Footer from "../components/shared/Footer/Footer";
 import SideBar from "@/components/shared/SideBar/SideBar";
+import { useState } from "react";
 
 const MainLayout = () => {
+  const [expandSideBar, setExpandSideBar] = useState(false);
+
   return (
     <div>
-      <NavBar />
+      <NavBar
+        expandSideBar={expandSideBar}
+        setExpandSideBar={setExpandSideBar}
+      />
       <div className="flex justify-between items-center">
-        <SideBar/>
-        <div className="ml-[200px] flex-1">
+        <SideBar expandSideBar={expandSideBar} />
+        <div className={`${expandSideBar ? "ml-[200px]" : "ml-[70px]"}`}>
           <Outlet />
         </div>
       </div>
