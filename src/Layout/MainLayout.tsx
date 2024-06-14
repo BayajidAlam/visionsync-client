@@ -14,9 +14,9 @@ const MainLayout = () => {
         expandSideBar={expandSideBar}
         setExpandSideBar={setExpandSideBar}
       />
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center w-full">
         <SideBar expandSideBar={expandSideBar} />
-        <div className={`${expandSideBar ? "ml-[200px]" : "ml-[70px]"} pt-14 overflow-hidden`}>
+        <div className={`${expandSideBar ? "ml-[200px]" : "ml-[70px]"} pt-14 w-full`}>
           <Outlet />
         </div>
       </div>

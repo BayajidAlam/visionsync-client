@@ -39,7 +39,7 @@ const NavBar = ({ expandSideBar, setExpandSideBar }: NavBarProps) => {
             <IoMenu className="text-3xl" />
           </button>
           <Link to="/">
-            <h1 className="text-green font-bold uppercase text-xl">
+            <h1 className="text-green font-bold  text-xl">
               VisionSync
             </h1>
           </Link>
@@ -58,7 +58,7 @@ const NavBar = ({ expandSideBar, setExpandSideBar }: NavBarProps) => {
 
       {/* small device  */}
       <div className="container mx-auto md:hidden justify-between items-center flex">
-        <h1 className="text-green font-bold uppercase text-xl">VisionSync</h1>
+        <h1 className="text-green font-bold  text-xl">VisionSync</h1>
         <div onClick={() => setExpand(!expand)} className="text-3xl">
           <IoMenu />
         </div>
