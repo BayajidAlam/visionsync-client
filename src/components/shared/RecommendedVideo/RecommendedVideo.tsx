@@ -9,6 +9,9 @@ type IChannelType = {
 
 type IVideoType = {
   _id: string;
+  url: string;
+  tag: string[];
+  category: string;
   thumbnail: string;
   title: string;
   uploadAt: string;
@@ -23,7 +26,7 @@ type IVideoProps = {
 
 const RecommendedVideo = ({ content }: IVideoProps) => {
   return (
-    <div className="p-4">
+    <div className="p-2">
       <div className="border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden flex justify-between items-start">
         <div className="relative">
           <img

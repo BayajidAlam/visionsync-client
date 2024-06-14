@@ -10,6 +10,9 @@ type IChannelType = {
 
 type IVideoType = {
   _id: string;
+  url: string;
+  tag: string[];
+  category: string;
   thumbnail: string;
   title: string;
   uploadAt: string;
