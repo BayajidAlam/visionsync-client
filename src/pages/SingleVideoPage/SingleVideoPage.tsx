@@ -7,6 +7,11 @@ const SingleVideoPage = () => {
 
   const [data, setData] = useState([]);
   const [video, setVideo] = useState(null);
+  const [showFullDescription, setShowFullDescription] = useState(false);
+
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
 
   useEffect(() => {
     fetch("../../../public/data.json")
@@ -67,32 +72,15 @@ const SingleVideoPage = () => {
           </h1>
 
           <p>
-            "কিছু অভিমান ভালোবাসার কথাই বলে, কিছু জিজ্ঞাসা উত্তর পেরিয়ে আসলে
-            চায় নিবিড় চোখে চেয়ে থাকা, কিছু না দেখার অর্থ হয় আজন্ম দুটো চোখে
-            আশ্রয় নেওয়া, কিছু ভালো না বাসার অর্থ হয় আজীবন অব্যক্ত ভালোবাসায়
-            জড়িয়ে রাখা,এমনই কিছু অভিমানের গান 'অলির কথা শুনে' নিয়ে হাজির
-            হলাম" This is a bengali cover of an evergreen romantic song "Oliro
-            Kotha Shune"...which gained notable popularity in westbengal and all
-            over india... This video is a tribute to all those love stories of
-            that generation where a couple used to make their love alive without
-            any social media...where they had faith on their love without seeing
-            each other oftenly...where they used to love their partners
-            selflessly without expecting anything in return...this video is a
-            tribute to that generation where love was not depend on any
-            condition or demand Kindly watch the full video,and give a feedback
-            to me❤❤❤ Hope you like it Don't forget to like share comment and
-            subscribe with bell icon... Original song credits : Song: Oliro
-            Kotha Shune Singer: Hemanta Mukherjee Lyrics: Gouriprasanna Majumdar
-            Composition: Hemanta Mukherjee Record label: Saregama india ltd.
-            Cover song credits: Singer: Debolinaa Nandy Ft. Debolinaa Nandy,
-            Sayak Chackraborty, Prity Biswas Music Rearrangement: Atishay Jain
-            Guitar: Jakiruddin Khan Mix & Master: Tarun Das Recording studio:
-            studio violina Story & concept: Debolinaa Nandy D.O.P: Aniket
-            Mukherjee & Animesh Mondal Edit & cc,Directed by: Papan Debolinaa's
-            costume: Rudra Saha Sayak's costume: Avijit Das Makeup & Hair: Sandy
-            Das ***All Rights to Music Label Co. & No Copyright infringement
-            intended.
+            {showFullDescription || video?.videoDescription.length <= 500
+              ? video?.videoDescription
+              : `${video?.videoDescription.substring(0, 300)}...`}
           </p>
+          {video?.videoDescription.length > 300 && (
+            <button onClick={toggleDescription}>
+              {showFullDescription ? "Show Less" : "See More"}
+            </button>
+          )}
         </div>
       </div>
       <div className="w-[30%]  flex justify-center items-center px-4">
