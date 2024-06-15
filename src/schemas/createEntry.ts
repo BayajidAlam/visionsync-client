@@ -8,10 +8,13 @@ export const createEntrySchema = z.object({
   transactionType: z.string({
     required_error: "Transaction Type is required",
   }),
-  amount: z.string({
+  title: z.string({
     required_error: "Amount is required",
   }),
   remarks: z.string().optional(),
+  video: z.strictObject({}),
+  thumbnail: z.string({}),
+  productDescription: z.string({}),
 });
 
 export const updateEntrySchema = z.object({
