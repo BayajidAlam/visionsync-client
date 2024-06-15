@@ -1,19 +1,21 @@
 import { Input } from "@/components/ui/input";
-import { createEntrySchema } from "@/schemas/createEntry";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
 import { useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
 import { z } from "zod";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import Loading from "@/components/Loading/Loading";
+import { Textarea } from "@/components/ui/textarea";
+import { uploadVideoSchema } from "@/schemas/createEntry";
 
 const UploadVideo = () => {
-  const [value, setValue] = useState("");
+  const [value, setValues] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -23,7 +25,9 @@ const UploadVideo = () => {
     if (event.key === "Enter" && inputValue.trim()) {
       event.preventDefault();
       if (!tags.includes(inputValue.trim())) {
-        setTags([...tags, inputValue.trim()]);
+        const newTags = [...tags, inputValue.trim()] as any;
+        setTags(newTags);
+        setValue("tags", newTags);
         setInputValue("");
       }
     }
@@ -34,23 +38,34 @@ const UploadVideo = () => {
     setTags(updatedTags);
   };
 
-  const form = useForm<z.infer<typeof createEntrySchema>>({
-    resolver: zodResolver(createEntrySchema),
-  });
+  // const form = useForm<z.infer<typeof uploadVideoSchema>>({
+  //   resolver: zodResolver(uploadVideoSchema),
+  // });
+
+  const form = useForm()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = form;
 
-  async function onSubmit(data: z.infer<typeof createEntrySchema>) {}
+  async function onSubmit(data: any) {
+    const formData = new FormData();
+    formData.append("video", data.video[0]);
+    formData.append("thumbnail", data.thumbnail[0]);
+    formData.append("title", data.title);
+    formData.append("description", data.description);
+    formData.append("tags", JSON.stringify(data.tags));
+  }
 
+  if (isLoading) return <Loading />;
   return (
     <div>
       <div className="m-5">
-        <Form className="w-1/2 mt-2" {...form}>
+        <div className="w-1/2 mt-2">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col  items-start gap-1 mt-2">
               <Label htmlFor="username" className="text-right">
@@ -206,27 +221,21 @@ const UploadVideo = () => {
               )}
             </div>
 
-            <div className="flex flex-col  items-start gap-1 mt-2">
-              <Label htmlFor="username" className="text-right">
+            <div className="flex flex-col items-start gap-1 mt-2">
+              <Label htmlFor="description" className="text-right">
                 Video Description
               </Label>
-              <ReactQuill
-                className="w-full h-16"
-                theme="snow"
-                value={value}
-                onChange={setValue}
-              />
-              ;
-              {errors.remarks && (
-                <p className="text-red-500">{errors.remarks.message}</p>
+              <Textarea {...register("description")} />
+              {errors.description && (
+                <p className="text-red-500">{errors.description.message}</p>
               )}
             </div>
 
             <div className="text-end mt-5">
-              <Button>Upload</Button>
+              <Button type="submit">Upload</Button>
             </div>
           </form>
-        </Form>
+        </div>
       </div>
     </div>
   );
